@@ -8,7 +8,7 @@ import {
   type Action,
   elizaLogger
 } from "@elizaos/core";
-import { TopicId } from "@hashgraph/sdk";
+import { TopicId, TopicMessageSubmitTransaction, Client, AccountId, PrivateKey } from "@hashgraph/sdk";
 import { HederaProvider } from "../../providers/client";
 
 const getAuditSummaryPrompt = (contract: string) => {
@@ -32,7 +32,7 @@ const getAuditSummaryPrompt = (contract: string) => {
   The JSON object must include:
   - A "summary" explaining the possible issues with the contract (concise explanation)
   - An "observations" array with up to 5 points of the most important vulnerabilities and possible fixes
-  - A "score" from 1 to 100 (security: 0-50, code quality: 0-25, gas efficiency: 0-25)
+  - A "score" from 1 to 100 (security: 0-50, code quality: 0-25, gas efficiency: 0-25), must be always a number
 
   If the contract is not valid solidity, return only: {"summary": "explanation of why the contract is invalid"}
 
@@ -53,13 +53,15 @@ const getGistURLPromptTemplate = (message: string) => `
   ${message}
 `
 
-const getAgentReturnResponse = (summary: string, observations: string[], score: number) => `
+const getAgentReturnResponse = (summary: string, observations: string[], score: number, auditPublishedAt: string) => `
 ${summary}
 
 ${observations.length > 0 ? `Observations:
   ${observations.map(observation => `- ${observation}`).join("\n")}` : ""}
 
 ${score ? `Score: ${score}` : ""}
+
+${auditPublishedAt ? `Audit score published: ${auditPublishedAt}` : "Audit score not published"}
 `
 
 export const auditContractAction: Action = {
@@ -100,18 +102,50 @@ export const auditContractAction: Action = {
 
       const { summary, observations, score } = JSON.parse(audit);
 
-      const hederaTopicId = runtime.getSetting("HEDERA_AUDITS_TOPIC_ID");
-      if (score && hederaTopicId) {
-        const hederaProvider = new HederaProvider(runtime).getHederaAgentKit();
+      let auditPublishedAt;
+      const hederaAuditTopicId = runtime.getSetting("HEDERA_AUDITS_TOPIC_ID");
+      if (score && hederaAuditTopicId) {
+        try {
+          const agentAccountIdString = runtime.getSetting("HEDERA_ACCOUNT_ID");
+          if (!agentAccountIdString) {
+            throw new Error("HEDERA_ACCOUNT_ID is not set in the environment variables");
+          }
 
-        await hederaProvider.submitTopicMessage(
-          TopicId.fromString(hederaTopicId),
-          `Contract at ${gistURL} audited with score ${score}`,
-        );
+          const agentPrivateKeyString = runtime.getSetting("HEDERA_PRIVATE_KEY");
+          if (!agentPrivateKeyString) {
+            throw new Error("HEDERA_PRIVATE_KEY is not set in the environment variables");
+          }
+
+          const agentAccountId = AccountId.fromString(agentAccountIdString);
+          const agentPrivateKey = PrivateKey.fromStringDer(agentPrivateKeyString);
+
+          const newClient = Client.forTestnet().setOperator(
+            agentAccountId,
+            agentPrivateKey
+          );
+
+          const submitMessageTx = new TopicMessageSubmitTransaction()
+            .setTopicId(TopicId.fromString(hederaAuditTopicId))
+            .setMessage(`Contract at ${gistURL} audited with score ${score}`)
+            .freezeWith(newClient)
+
+          const signedSubmitMessageTx = await submitMessageTx.sign(agentPrivateKey);
+
+          const executeSubmitMessageTx = await signedSubmitMessageTx.execute(newClient);
+          const submitMessageReceipt = await executeSubmitMessageTx.getReceipt(
+            newClient
+          );
+
+          elizaLogger.debug(`Message audit submitted successfully to topic ${hederaAuditTopicId}`);
+
+          auditPublishedAt = `https://hashscan.io/testnet/transaction/${signedSubmitMessageTx.transactionId}`;
+        } catch (error) {
+          elizaLogger.error(`Error submitting message to topic ${hederaAuditTopicId}: ${error}`);
+        }
       }
 
       callback({
-        text: getAgentReturnResponse(summary, observations, score)
+        text: getAgentReturnResponse(summary, observations, score, auditPublishedAt)
       }, [])
     }
   },

@@ -12,24 +12,23 @@ dotenv.config();
 
 const message = () => {
   return `
-  Audit this contract https://gist.githubusercontent.com/santgr11/ba3c36d841d5fc0982f925589b5e148e/raw/adede641c055435a21fc1d71c8adf5a0e6fd437b/counter.sol
+  Audit this contract https://gist.githubusercontent.com/santgr11/58606b36571cd07a649c222dbd662d7d/raw/b75def233d4ae7de408b3910e65d5121daa1fb35/tme-lock.sol
 `.trim();
 };
 
 async function main() {
-  if (
-    !process.env.TOPIC_ID ||
-    !process.env.USER_HEDERA_PRIVATE_KEY ||
-    !process.env.USER_HEDERA_ACCOUNT_ID
-  ) {
-    throw new Error(
-      'TOPIC_ID | USER_HEDERA_PRIVATE_KEY | USER_HEDERA_ACCOUNT_ID is not set in the environment variables'
-    );
-  }
+  if (!process.env.CHAT_TOPIC_ID)
+    throw new Error('CHAT_TOPIC_ID is not set in the environment variables');
+
+  if (!process.env.USER_HEDERA_PRIVATE_KEY)
+    throw new Error('USER_HEDERA_PRIVATE_KEY is not set in the environment variables');
+
+  if (!process.env.USER_HEDERA_ACCOUNT_ID)
+    throw new Error('USER_HEDERA_ACCOUNT_ID is not set in the environment variables');
 
   console.log('Setting up transaction');
   const submitMessageTx = new TopicMessageSubmitTransaction()
-    .setTopicId(TopicId.fromString(process.env.TOPIC_ID))
+    .setTopicId(TopicId.fromString(process.env.CHAT_TOPIC_ID))
     .setMessage(message());
 
   console.log('Creating client');

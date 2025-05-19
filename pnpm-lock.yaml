@@ -1930,7 +1930,6 @@ packages:
 
   '@confio/ics23@0.6.8':
     resolution: {integrity: sha512-wB6uo+3A50m0sW/EWcU64xpV/8wShZ6bMTa7pF8eYsTrSkQA7oLUIJcs/wb8g4y2Oyq701BaGiO6n/ak5WXO1w==}
-    deprecated: Unmaintained. The codebase for this package was moved to https://github.com/cosmos/ics23 but then the JS implementation was removed in https://github.com/cosmos/ics23/pull/353. Please consult the maintainers of https://github.com/cosmos for further assistance.
 
   '@cosmjs/amino@0.32.4':
     resolution: {integrity: sha512-zKYOt6hPy8obIFtLie/xtygCkH9ZROiQ12UHfKsOkWaZfPQUvVbtgmu6R4Kn1tFLI/SRkw7eqhaogmW/3NYu/Q==}
@@ -3295,7 +3294,6 @@ packages:
 
   '@motionone/vue@10.16.4':
     resolution: {integrity: sha512-z10PF9JV6SbjFq+/rYabM+8CVlMokgl8RFGvieSGNTmrkQanfHn+15XBrhG3BgUfvmTeSeyShfOHpG0i9zEdcg==}
-    deprecated: Motion One for Vue is deprecated. Use Oku Motion instead https://oku-ui.com/motion
 
   '@msgpack/msgpack@3.1.0':
     resolution: {integrity: sha512-igBxaq5JHWdJ0lDyKkCo00pDu+bNVuBAs/cHra6a3ndCw6vlZK9BGLuG7Fvmar/DXK2uJ25zvgcAZEl+AvLpjQ==}
@@ -5343,7 +5341,6 @@ packages:
 
   '@walletconnect/mobile-registry@1.4.0':
     resolution: {integrity: sha512-ZtKRio4uCZ1JUF7LIdecmZt7FOLnX72RPSY7aUVu7mj7CSfxDwUn6gBuK6WGtH+NZCldBqDl5DenI5fFSvkKYw==}
-    deprecated: 'Deprecated in favor of dynamic registry available from: https://github.com/walletconnect/walletconnect-registry'
 
   '@walletconnect/modal-core@2.7.0':
     resolution: {integrity: sha512-oyMIfdlNdpyKF2kTJowTixZSo0PGlCJRdssUN/EZdA6H6v03hZnf09JnwpljZNfir2M65Dvjm/15nGrDQnlxSA==}
@@ -5356,7 +5353,6 @@ packages:
 
   '@walletconnect/qrcode-modal@1.8.0':
     resolution: {integrity: sha512-BueaFefaAi8mawE45eUtztg3ZFbsAH4DDXh1UNwdUlsvFMjqcYzLUG0xZvDd6z2eOpbgDg2N3bl6gF0KONj1dg==}
-    deprecated: 'WalletConnect''s v1 SDKs are now deprecated. Please upgrade to a v2 SDK. For details see: https://docs.walletconnect.com/'
 
   '@walletconnect/relay-api@1.0.11':
     resolution: {integrity: sha512-tLPErkze/HmC9aCmdZOhtVmYZq1wKfWTJtygQHoWtgg722Jd4homo54Cs4ak2RUFUZIGO2RsOpIcWipaua5D5Q==}
@@ -5382,7 +5378,6 @@ packages:
 
   '@walletconnect/types@1.8.0':
     resolution: {integrity: sha512-Cn+3I0V0vT9ghMuzh1KzZvCkiAxTq+1TR2eSqw5E5AVWfmCtECFkVZBP6uUJZ8YjwLqXheI+rnjqPy7sVM4Fyg==}
-    deprecated: 'WalletConnect''s v1 SDKs are now deprecated. Please upgrade to a v2 SDK. For details see: https://docs.walletconnect.com/'
 
   '@walletconnect/types@2.17.1':
     resolution: {integrity: sha512-aiUeBE3EZZTsZBv5Cju3D0PWAsZCMks1g3hzQs9oNtrbuLL6pKKU0/zpKwk4vGywszxPvC3U0tBCku9LLsH/0A==}
@@ -5505,7 +5500,6 @@ packages:
 
   abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
-    deprecated: Use your platform's native atob() and btoa() methods instead
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -7339,7 +7333,6 @@ packages:
   domexception@4.0.0:
     resolution: {integrity: sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==}
     engines: {node: '>=12'}
-    deprecated: Use your platform's native DOMException instead
 
   domhandler@4.3.1:
     resolution: {integrity: sha512-GrwoxYN+uWlzO8uhUXRl0P+kHE4GtVPfYzVLcUxPL7KNdHKj66vvlhiweIHqYYXWlw+T8iLMp42Lm67ghw4WMQ==}
@@ -7758,7 +7751,6 @@ packages:
 
   ethereumjs-abi@0.6.8:
     resolution: {integrity: sha512-Tx0r/iXI6r+lRsdvkFDlut0N08jWMnKRZ6Gkq+Nmw75lZe4e6o3EkSnkaBP5NF6+m5PTGAr9JP43N3LyeoglsA==}
-    deprecated: This library has been deprecated and usage is discouraged.
 
   ethereumjs-util@6.2.1:
     resolution: {integrity: sha512-W2Ktez4L01Vexijrm5EB6w7dg4n/TgpoYU4avuT5T3Vmnw/eCRtiBrJfQYS/DCSvDIOLn2k57GcHdeBcgVxAqw==}
@@ -8238,7 +8230,6 @@ packages:
   gauge@3.0.2:
     resolution: {integrity: sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==}
     engines: {node: '>=10'}
-    deprecated: This package is no longer supported.
 
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -8355,7 +8346,6 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@9.3.5:
     resolution: {integrity: sha512-e1LleDykUz2Iu+MTYdkSsuWX8lvAjAcs0Xef0lNIu0S2wOAzuTxCJtcd9S3cijlwYF18EsU3rzb8jPVobxDh9Q==}
@@ -8799,7 +8789,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -10354,7 +10343,6 @@ packages:
 
   mkdirp@0.3.0:
     resolution: {integrity: sha512-OHsdUcVAQ6pOtg5JYWpCBo9W/GySVuwvP9hueRMW7UqshC0tbfzLv8wjySTPm3tfUZ/21CE9E1pJagOA91Pxew==}
-    deprecated: Legacy versions of mkdirp are no longer supported. Please update to mkdirp 1.x. (Note that the API surface has changed to use Promises in 1.x.)
 
   mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
@@ -12323,7 +12311,6 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@4.4.1:
@@ -13605,7 +13592,6 @@ packages:
 
   unicode-9.0.0@0.7.0:
     resolution: {integrity: sha512-aqL0GQ3LB2nC3ZEKBZ93hfn7QY80sVGk+OT9Sc6lTxl4wRiwzUBRlAjJB9Fe4+5XydXOV+tb8udp5oRBoED5Tw==}
-    deprecated: Use @unicode/unicode-9.0.0 instead.
 
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
@@ -21574,7 +21560,7 @@ snapshots:
       '@ethersproject/transactions': 5.8.0
       '@stablelib/random': 1.0.2
       '@stablelib/sha256': 1.0.1
-      '@walletconnect/core': 2.17.1(bufferutil@4.0.9)(ioredis@5.6.1)(utf-8-validate@5.0.10)
+      '@walletconnect/core': 2.20.2(bufferutil@4.0.9)(ioredis@5.6.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.2
       '@walletconnect/jsonrpc-utils': 1.0.8

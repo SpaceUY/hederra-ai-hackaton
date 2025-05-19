@@ -3,7 +3,6 @@ import {
   HCS10Client,
   AgentBuilder,
   AIAgentCapability,
-  InboundTopicType,
 } from '@hashgraphonline/standards-sdk';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
@@ -12,12 +11,11 @@ dotenv.config();
 
 async function main() {
   if (
-    !process.env.AGENT_HEDERA_ACCOUNT_ID ||
-    !process.env.AGENT_HEDERA_PRIVATE_KEY ||
-    !process.env.AGENT_HEDERA_PUBLIC_KEY
+    !process.env.OPERATOR_HEDERA_ACCOUNT_ID ||
+    !process.env.OPERATOR_HEDERA_PRIVATE_KEY
   ) {
     throw new Error(
-      'AGENT_HEDERA_ACCOUNT_ID | AGENT_HEDERA_PRIVATE_KEY | AGENT_HEDERA_PUBLIC_KEY is not set in the environment variables'
+      'OPERATOR_HEDERA_ACCOUNT_ID | OPERATOR_HEDERA_PRIVATE_KEY is not set in the environment variables'
     );
   }
 
@@ -25,12 +23,12 @@ async function main() {
   // Basic configuration
   const client = new HCS10Client({
     network: 'testnet', // Network: 'testnet' or 'mainnet'
-    operatorId: process.env.AGENT_HEDERA_ACCOUNT_ID, // Your Hedera account ID
-    operatorPrivateKey: process.env.AGENT_HEDERA_PRIVATE_KEY, // Your Hedera private key
+    operatorId: process.env.OPERATOR_HEDERA_ACCOUNT_ID, // Your Hedera account ID
+    operatorPrivateKey: process.env.OPERATOR_HEDERA_PRIVATE_KEY, // Your Hedera private key
     logLevel: 'info', // Optional: 'debug', 'info', 'warn', 'error'
     prettyPrint: true, // Optional: prettier console output
     guardedRegistryBaseUrl: 'https://moonscape.tech', // Optional: registry URL
-    feeAmount: 1, // Optional: default fee in HBAR
+    feeAmount: 10, // Optional: default fee in HBAR
   });
 
   // Create a standard agent
@@ -49,7 +47,8 @@ async function main() {
         specialization: 'contract auditing',
         supportedLanguages: ['en'],
       },
-    });
+    })
+
 
   // Fetch and convert image to Buffer
   const imageUrl = 'https://media.licdn.com/dms/image/v2/D4E0BAQFEtx2q13hH5Q/company-logo_200_200/company-logo_200_200/0/1719255594120/spacedev_uy_logo?e=2147483647&v=beta&t=yRvy2Xp-mLzeIhVVqAW3pQ8fZIiU3xXk6yJGoJRxfSM';
@@ -73,6 +72,8 @@ async function main() {
 
     // Store these securely - they're needed to operate the agent
     console.log(`Agent private key: ${result.metadata?.privateKey}`);
+  } else {
+    throw new Error(result?.error);
   }
 }
 

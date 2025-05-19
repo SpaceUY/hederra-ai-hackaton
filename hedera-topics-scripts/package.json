@@ -1,19 +1,19 @@
 {
-  "name": "hedera-hcs10",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest",
-    "tsx": "^4.19.3"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@hashgraph/sdk": "^2.63.0",
-    "@hashgraphonline/standards-agent-kit": "^0.0.19",
-    "dotenv": "^16.5.0",
-    "hedera-agent-kit": "^1.0.6"
-  }
+    "name": "hedera-hcs10",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@types/bun": "latest",
+        "tsx": "^4.19.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "@hashgraph/sdk": "^2.63.0",
+        "@hashgraphonline/standards-agent-kit": "^0.0.22",
+        "dotenv": "^16.5.0",
+        "hedera-agent-kit": "^1.0.6"
+    }
 }

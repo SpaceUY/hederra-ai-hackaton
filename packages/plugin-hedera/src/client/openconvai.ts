@@ -14,12 +14,12 @@ import {
 import { EventEmitter } from "events";
 import {
   HCS10Client,
-  type HCSMessage,
-  type IConnectionsManager,
+  HCSMessage,
+  IConnectionsManager,
   ConnectionsManager,
-  type NetworkType,
+  NetworkType,
 } from "@hashgraphonline/standards-sdk";
-import type { TransactionReceipt } from "@hashgraph/sdk";
+import { TransactionReceipt } from "@hashgraph/sdk";
 import { hederaMessageHandlerTemplate } from "../templates";
 
 const logger = elizaLogger;

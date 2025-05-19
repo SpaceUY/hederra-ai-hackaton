@@ -4,7 +4,7 @@ import {
   AccountId,
   CustomFixedFee,
   TopicCreateTransaction,
-  PublicKey
+  PublicKey,
 } from '@hashgraph/sdk';
 
 import dotenv from 'dotenv';
@@ -12,27 +12,27 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function main() {
-  if (
-    !process.env.AGENT_HEDERA_ACCOUNT_ID ||
-    !process.env.AGENT_HEDERA_PRIVATE_KEY ||
-    !process.env.AGENT_HEDERA_PUBLIC_KEY
-  ) {
-    throw new Error(
-      'AGENT_HEDERA_ACCOUNT_ID | AGENT_HEDERA_PRIVATE_KEY | AGENT_HEDERA_PUBLIC_KEY is not set in the environment variables'
-    );
-  }
+  if (!process.env.AGENT_HEDERA_ACCOUNT_ID) throw new Error('AGENT_HEDERA_ACCOUNT_ID is not set in the environment variables');
+  if (!process.env.AGENT_HEDERA_PRIVATE_KEY) throw new Error('AGENT_HEDERA_PRIVATE_KEY is not set in the environment variables');
+  if (!process.env.OPERATOR_HEDERA_ACCOUNT_ID) throw new Error('OPERATOR_HEDERA_ACCOUNT_ID is not set in the environment variables');
+  if (!process.env.OPERATOR_HEDERA_PRIVATE_KEY) throw new Error('OPERATOR_HEDERA_PRIVATE_KEY is not set in the environment variables');
 
   console.log('Setting up custom fee configuration');
 
+  const operatorPrivateKey = PrivateKey.fromStringDer(process.env.OPERATOR_HEDERA_PRIVATE_KEY);
+  const operatorAccountId = AccountId.fromString(process.env.OPERATOR_HEDERA_ACCOUNT_ID);
+
+  const agentPrivateKey = PrivateKey.fromStringDer(process.env.AGENT_HEDERA_PRIVATE_KEY);
+  const agentAccountId = AccountId.fromString(process.env.AGENT_HEDERA_ACCOUNT_ID);
 
   const newClient = Client.forTestnet().setOperator(
-    AccountId.fromString(process.env.AGENT_HEDERA_ACCOUNT_ID),
-    PrivateKey.fromStringECDSA(process.env.AGENT_HEDERA_PRIVATE_KEY)
+    operatorAccountId,
+    operatorPrivateKey
   );
 
   // Create topic to interact with the agent
   const customFee = new CustomFixedFee({
-    feeCollectorAccountId: AccountId.fromString(process.env.AGENT_HEDERA_ACCOUNT_ID),
+    feeCollectorAccountId: operatorAccountId,
     amount: 10
   });
 
@@ -40,9 +40,11 @@ async function main() {
     .setCustomFees([customFee])
     .setFeeExemptKeys(
       [
-        PublicKey.fromStringECDSA(process.env.AGENT_HEDERA_PUBLIC_KEY)
+        agentPrivateKey.publicKey
       ]
-    );
+    ).setAdminKey(
+      operatorPrivateKey.publicKey
+    )
 
   const executeAgentTopicCreateTx = await agentTopicCreateTx.execute(newClient)
   const agentTopicCreateReceipt = await executeAgentTopicCreateTx.getReceipt(newClient)
@@ -51,9 +53,13 @@ async function main() {
   console.log(`Agent topic created successfully with ID: ${agentTopicId}`)
 
   // Create topic to publish audit scores
-  const auditsTopicCreateTx = new TopicCreateTransaction().setSubmitKey(
-    PublicKey.fromStringECDSA(process.env.AGENT_HEDERA_PUBLIC_KEY)
-  );
+  const auditsTopicCreateTx = new TopicCreateTransaction()
+    .setSubmitKey(
+      agentPrivateKey.publicKey
+    )
+    .setAdminKey(
+      operatorPrivateKey.publicKey
+    )
 
   const executeAuditsTopicCreateTx = await auditsTopicCreateTx.execute(newClient)
   const auditsTopicCreateReceipt = await executeAuditsTopicCreateTx.getReceipt(newClient)
